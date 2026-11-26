@@ -1,0 +1,371 @@
+@use '@angular/material' as mat;
+@use './theme-colors' as ac;
+
+/* ============================================================
+   1. Tema de Angular Material
+   Paletas generadas desde el verde de la marca (#2F5D3A) y un
+   café tierra (#8A5A3B). El modo oscuro lo decide `color-scheme`,
+   que cambia con el atributo data-theme (igual que la app web).
+   ============================================================ */
+html {
+  color-scheme: light;
+
+  @include mat.theme(
+    (
+      color: (
+        primary: ac.$primary-palette,
+        tertiary: ac.$tertiary-palette,
+        theme-type: color-scheme,
+      ),
+      typography: (
+        plain-family: 'Plus Jakarta Sans, Segoe UI, Roboto, Helvetica, Arial, sans-serif',
+        brand-family: 'Plus Jakarta Sans, Segoe UI, Roboto, Helvetica, Arial, sans-serif',
+        bold-weight: 700,
+        medium-weight: 600,
+        regular-weight: 400,
+      ),
+      density: 0,
+    )
+  );
+
+  // El verde exacto de la marca en modo claro; en oscuro, el verde claro de la app.
+  @include mat.theme-overrides(
+    (
+      primary: light-dark(#2f5d3a, #8ccb98),
+      on-primary: light-dark(#ffffff, #0f2e19),
+      surface: light-dark(#ffffff, #172019),
+      background: light-dark(#f4f6f3, #0f1511),
+    )
+  );
+
+  // Botones con esquinas de 8 px, como los de la app (no en forma de píldora).
+  @include mat.button-overrides(
+    (
+      filled-container-shape: 8px,
+      outlined-container-shape: 8px,
+      text-container-shape: 8px,
+      protected-container-shape: 8px,
+      tonal-container-shape: 8px,
+      filled-label-text-weight: 700,
+      outlined-label-text-weight: 700,
+      text-label-text-weight: 600,
+    )
+  );
+
+  @include mat.tabs-overrides(
+    (
+      label-text-weight: 600,
+      label-text-size: 1rem,
+    )
+  );
+
+  @include mat.tooltip-overrides(
+    (
+      container-shape: 6px,
+    )
+  );
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+/* ============================================================
+   2. Tokens propios de la landing
+   Paleta: verde andino, café de suelo, amarillo maíz y azul agua.
+   ============================================================ */
+:root {
+  --ac-verde: #2f5d3a;
+  --ac-verde-hover: #264d30;
+  --ac-verde-profundo: #1d3a25;
+  --ac-bosque: #1a3322; /* fondo de la portada, bandas oscuras y pie */
+  --ac-acento: #2f5d3a;
+  --ac-tierra: #8a5a3b;
+  --ac-maiz: #e3b341;
+  --ac-agua: #0e7c86;
+  --ac-alerta: #b8432a;
+
+  --ac-fondo: #f4f6f3;
+  --ac-superficie: #ffffff;
+  --ac-superficie-2: #eaefe8;
+  --ac-tinta: #1f2a21;
+  --ac-tinta-suave: #4a5a4e;
+  --ac-linea: #d6ddd4;
+  --ac-curva: rgba(47, 93, 58, 0.2);
+  --ac-curva-fuerte: rgba(47, 93, 58, 0.42);
+
+  --ac-fuente: 'Plus Jakarta Sans', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --ac-ancho: 1200px;
+  --ac-gutter: clamp(16px, 4vw, 40px);
+  --ac-radio: 8px;
+  --ac-radio-grande: 14px;
+  --ac-curva-mov: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+:root[data-theme='dark'] {
+  --ac-bosque: #122318;
+  --ac-acento: #8ccb98;
+  --ac-tierra: #c9956b;
+  --ac-agua: #4cb8c2;
+  --ac-alerta: #f0877b;
+
+  --ac-fondo: #0f1511;
+  --ac-superficie: #172019;
+  --ac-superficie-2: #1d271f;
+  --ac-tinta: #e4ebe5;
+  --ac-tinta-suave: #a7b5aa;
+  --ac-linea: #2c3a30;
+  --ac-curva: rgba(140, 203, 152, 0.14);
+  --ac-curva-fuerte: rgba(140, 203, 152, 0.34);
+}
+
+/* ============================================================
+   3. Base
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--ac-fuente);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ac-tinta);
+  background: var(--ac-fondo);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  color: var(--ac-tinta);
+  text-wrap: balance;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--ac-acento);
+  text-underline-offset: 3px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ac-acento);
+  outline-offset: 2px;
+}
+
+.contenedor {
+  width: 100%;
+  max-width: calc(var(--ac-ancho) + 2 * var(--ac-gutter));
+  margin: 0 auto;
+  padding: 0 var(--ac-gutter);
+}
+
+.texto-suave {
+  color: var(--ac-tinta-suave);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Botón grande para las llamadas a la acción principales. */
+.boton-grande.mat-mdc-button-base {
+  height: 54px;
+  padding-inline: 28px;
+  font-size: 1.02rem;
+
+  .mat-icon {
+    transition: translate 0.3s var(--ac-curva-mov);
+  }
+
+  &:hover .mat-icon {
+    translate: 4px 0;
+  }
+}
+
+/* Botones sobre fondos verdes oscuros */
+.boton-claro {
+  --mat-button-filled-container-color: #ffffff;
+  --mat-button-filled-label-text-color: #1a3322;
+  --mat-button-filled-state-layer-color: #1a3322;
+}
+
+.boton-contorno-claro {
+  --mat-button-outlined-label-text-color: #ffffff;
+  --mat-button-outlined-outline-color: rgba(255, 255, 255, 0.45);
+  --mat-button-outlined-state-layer-color: #ffffff;
+}
+
+/* ============================================================
+   4. Piezas editoriales compartidas
+   ============================================================ */
+
+/* Ceja: etiqueta pequeña en mayúsculas sobre los títulos → "FUNCIONALIDADES" */
+.ceja {
+  margin-bottom: 18px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ac-acento);
+}
+
+.ceja-clara {
+  color: #a0d3a7;
+}
+
+/* Parte ligera de un título: contraste de peso con la misma tipografía */
+.ligero {
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  color: var(--ac-acento);
+}
+
+.hero .ligero,
+.banda .ligero {
+  color: #bfe3c4;
+}
+
+/* Etiqueta con borde (en vez de chips redondeados) */
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 4px 10px;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  .mat-icon {
+    flex: none;
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* Enlace de texto con flecha */
+.enlace-flecha {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: var(--ac-acento);
+  text-decoration: none;
+
+  .mat-icon {
+    width: 18px;
+    height: 18px;
+    transition: translate 0.3s var(--ac-curva-mov);
+  }
+
+  &:hover {
+    text-decoration: underline;
+
+    .mat-icon {
+      translate: 4px 0;
+    }
+  }
+}
+
+/* Aparición al hacer scroll (la clase la agrega la directiva appRevelar) */
+.revelar {
+  opacity: 0;
+}
+
+.revelar.visible {
+  animation: revelar 0.9s var(--ac-curva-mov) both;
+}
+
+@keyframes revelar {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* El menú móvil se dibuja en un overlay, por eso su estilo va aquí. */
+.menu-movil .menu-entrar {
+  border-top: 1px solid var(--ac-linea);
+  --mat-menu-item-label-text-color: var(--ac-acento);
+  --mat-menu-item-label-text-weight: 700;
+}
+
+/* Índice de términos: los títulos largos bajan de línea en vez de cortarse. */
+.indice-terminos .mdc-list-item__primary-text {
+  white-space: normal;
+  line-height: 1.35;
+}
+
+/* Íconos SVG de la marca dentro de mat-icon. */
+.mat-icon svg {
+  display: block;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.22s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
