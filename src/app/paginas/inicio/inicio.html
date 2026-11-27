@@ -12,7 +12,10 @@
         {{ 'son compatibles con tu terreno' | t }}
       </h1>
       <p class="pitch">
-        {{ 'AgroCrew cruza datos oficiales de suelo, clima y riesgo hídrico de tu predio y te dice qué sembrar, por qué y qué riesgos vigilar. Gratis y en lenguaje sencillo.' | t }}
+        {{
+          'AgroCrew cruza datos oficiales de suelo, clima y riesgo hídrico de tu predio y te dice qué sembrar, por qué y qué riesgos vigilar. Gratis y en lenguaje sencillo.'
+            | t
+        }}
       </p>
 
       <div class="cta">
@@ -20,7 +23,12 @@
           {{ 'Evaluar mi terreno' | t }}
           <mat-icon iconPositionEnd svgIcon="flecha" />
         </a>
-        <a mat-stroked-button class="boton-grande boton-contorno-claro" routerLink="/" fragment="como-funciona">
+        <a
+          mat-stroked-button
+          class="boton-grande boton-contorno-claro"
+          routerLink="/"
+          fragment="como-funciona"
+        >
           {{ 'Ver cómo funciona' | t }}
         </a>
       </div>
@@ -70,7 +78,11 @@
             <li [style.--i]="i">
               <span class="pos">{{ indice(i) }}</span>
               <span class="cultivo">{{ fila.cultivo | t }}</span>
-              <mat-progress-bar mode="determinate" [value]="fila.puntaje" [attr.aria-label]="fila.cultivo | t" />
+              <mat-progress-bar
+                mode="determinate"
+                [value]="fila.puntaje"
+                [attr.aria-label]="fila.cultivo | t"
+              />
               <b>{{ fila.puntaje }}</b>
             </li>
           }
@@ -93,9 +105,13 @@
         <div class="cifra" [appRevelar]="i">
           <dt>
             <span class="sr-only">{{ formatear(cifra.valor, cifra.sufijo) }}</span>
-            <span aria-hidden="true" [appContador]="cifra.valor" [formato]="numero" [sufijo]="cifra.sufijo">{{
-              formatear(cifra.valor, cifra.sufijo)
-            }}</span>
+            <span
+              aria-hidden="true"
+              [appContador]="cifra.valor"
+              [formato]="numero"
+              [sufijo]="cifra.sufijo"
+              >{{ formatear(cifra.valor, cifra.sufijo) }}</span
+            >
           </dt>
           <dd>{{ cifra.texto | t }}</dd>
         </div>
@@ -113,7 +129,10 @@
       <span class="ligero">{{ 'en un solo lugar' | t }}</span>
     </h2>
     <p class="texto-suave">
-      {{ 'Cuatro herramientas que trabajan juntas para que tomes mejores decisiones antes de sembrar.' | t }}
+      {{
+        'Cuatro herramientas que trabajan juntas para que tomes mejores decisiones antes de sembrar.'
+          | t
+      }}
     </p>
   </header>
 
@@ -140,7 +159,10 @@
             }
             @case ('clima') {
               <svg viewBox="0 0 200 60" class="curva-clima">
-                <path class="area" d="M0 44 C20 34 35 22 55 26 S90 48 110 34 S150 10 170 18 S195 30 200 26 V60 H0Z" />
+                <path
+                  class="area"
+                  d="M0 44 C20 34 35 22 55 26 S90 48 110 34 S150 10 170 18 S195 30 200 26 V60 H0Z"
+                />
                 <path d="M0 44 C20 34 35 22 55 26 S90 48 110 34 S150 10 170 18 S195 30 200 26" />
               </svg>
             }
@@ -233,7 +255,10 @@
       </h2>
       <blockquote class="meta">
         <strong>{{ 'Meta 2.4' | t }}</strong>
-        {{ 'Asegurar sistemas sostenibles de producción de alimentos y aplicar prácticas agrícolas resilientes que aumenten la productividad, ayuden a mantener los ecosistemas y fortalezcan la adaptación al cambio climático.' | t }}
+        {{
+          'Asegurar sistemas sostenibles de producción de alimentos y aplicar prácticas agrícolas resilientes que aumenten la productividad, ayuden a mantener los ecosistemas y fortalezcan la adaptación al cambio climático.'
+            | t
+        }}
       </blockquote>
     </div>
 
@@ -277,7 +302,10 @@
       <p class="ceja">{{ 'El proyecto' | t }}</p>
       <h2>{{ 'Conoce cómo está construido AgroCrew' | t }}</h2>
       <p class="texto-suave">
-        {{ 'Una API REST en Spring Boot desplegada en AWS y una aplicación web en Angular. El código es abierto: revisa la documentación de la API o los repositorios.' | t }}
+        {{
+          'Una API REST en Spring Boot desplegada en AWS y una aplicación web en Angular. El código es abierto: revisa la documentación de la API o los repositorios.'
+            | t
+        }}
       </p>
       <ul class="tecnologias" [attr.aria-label]="'Tecnologías' | t">
         @for (tec of tecnologias; track tec) {
@@ -308,10 +336,14 @@
 <section class="contenedor cta-final">
   <h2 appRevelar>{{ '¿Listo para conocer tu terreno?' | t }}</h2>
   <div class="cta-fila" appRevelar="1">
-    <p class="texto-suave">{{ 'Crea tu cuenta, registra tu predio y recibe tu primera recomendación en minutos.' | t }}</p>
+    <p class="texto-suave">
+      {{ 'Crea tu cuenta, registra tu predio y recibe tu primera recomendación en minutos.' | t }}
+    </p>
     <a mat-flat-button class="boton-grande" [href]="entorno.appUrl">
       {{ 'Empezar ahora' | t }}
       <mat-icon iconPositionEnd svgIcon="flecha" />
     </a>
   </div>
 </section>
+
+<app-volver-arriba />

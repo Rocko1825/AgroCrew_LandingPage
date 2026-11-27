@@ -6,10 +6,12 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TraducirPipe, idioma } from '../../core/i18n';
 import { Contador, Revelar } from '../../shared/revelar';
 import { entorno } from '../../../environments/entorno';
+import { VolverArriba } from '../../shared/volver-arriba';
 
 @Component({
   selector: 'app-inicio',
   imports: [
+    VolverArriba,
     RouterLink,
     MatButtonModule,
     MatIconModule,
@@ -23,7 +25,7 @@ import { entorno } from '../../../environments/entorno';
 })
 export class Inicio {
   protected readonly entorno = entorno;
-  protected readonly numero =new Intl.NumberFormat(idioma === 'en' ? 'en-US' : 'es-PE');
+  protected readonly numero = new Intl.NumberFormat(idioma === 'en' ? 'en-US' : 'es-PE');
 
   /** Ejemplo de ranking que se muestra en la tarjeta del hero. */
   protected readonly ranking = [
@@ -129,8 +131,7 @@ export class Inicio {
       id: 'instituciones',
       icono: 'escudo',
       titulo: 'Instituciones y administradores',
-      resumen:
-        'Gobiernos locales, cooperativas y el equipo que mantiene el catálogo agronómico.',
+      resumen: 'Gobiernos locales, cooperativas y el equipo que mantiene el catálogo agronómico.',
       puntos: [
         'Catálogo de cultivos y requerimientos',
         'Datos económicos referenciales',
@@ -162,10 +163,30 @@ export class Inicio {
   ];
 
   protected readonly fuentes = [
-    { nombre: 'MIDAGRI', tema: 'Suelo', icono: 'capas', dato: 'Capacidad de uso mayor del suelo y catastro rural' },
-    { nombre: 'ANA', tema: 'Agua', icono: 'gota', dato: 'Puntos críticos de inundación y desborde' },
-    { nombre: 'Open-Meteo', tema: 'Clima', icono: 'sol', dato: 'Clima histórico y pronóstico de 7 días' },
-    { nombre: 'Google Gemini', tema: 'IA', icono: 'chispa', dato: 'Explicaciones en lenguaje sencillo' },
+    {
+      nombre: 'MIDAGRI',
+      tema: 'Suelo',
+      icono: 'capas',
+      dato: 'Capacidad de uso mayor del suelo y catastro rural',
+    },
+    {
+      nombre: 'ANA',
+      tema: 'Agua',
+      icono: 'gota',
+      dato: 'Puntos críticos de inundación y desborde',
+    },
+    {
+      nombre: 'Open-Meteo',
+      tema: 'Clima',
+      icono: 'sol',
+      dato: 'Clima histórico y pronóstico de 7 días',
+    },
+    {
+      nombre: 'Google Gemini',
+      tema: 'IA',
+      icono: 'chispa',
+      dato: 'Explicaciones en lenguaje sencillo',
+    },
   ];
 
   protected readonly tecnologias = [
