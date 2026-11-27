@@ -1,0 +1,40 @@
+<footer class="pie">
+  <div class="contenedor columnas">
+    <div class="col-marca">
+      <p class="ceja ceja-clara">{{ 'Proyecto académico UPC' | t }}</p>
+      <p class="descripcion">
+        {{ 'Descubre qué cultivos son compatibles con tu terreno, con datos oficiales de suelo, clima y riesgo.' | t }}
+      </p>
+    </div>
+
+    <nav [attr.aria-label]="'Explorar' | t">
+      <h2>{{ 'Explorar' | t }}</h2>
+      <ul>
+        <li><a routerLink="/" fragment="funcionalidades">{{ 'Funcionalidades' | t }}</a></li>
+        <li><a routerLink="/" fragment="para-quien">{{ 'Para quién es' | t }}</a></li>
+        <li><a routerLink="/" fragment="impacto">{{ 'Impacto' | t }}</a></li>
+        <li><a [href]="entorno.appUrl">{{ 'Entrar a la app' | t }}</a></li>
+      </ul>
+    </nav>
+
+    <nav [attr.aria-label]="'Proyecto' | t">
+      <h2>{{ 'Proyecto' | t }}</h2>
+      <ul>
+        <li><a [href]="entorno.apiDocsUrl" target="_blank" rel="noopener">{{ 'API (Swagger)' | t }}</a></li>
+        <li><a [href]="entorno.repoBackend" target="_blank" rel="noopener">{{ 'Código del backend' | t }}</a></li>
+        <li><a [href]="entorno.repoFrontend" target="_blank" rel="noopener">{{ 'Código del frontend' | t }}</a></li>
+        <li><a routerLink="/terminos">{{ 'Términos y condiciones' | t }}</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="contenedor">
+    <div class="aviso">
+      <p>
+        <strong>{{ 'Aviso:' | t }}</strong>
+        {{ 'Las recomendaciones de AgroCrew son referenciales: no reemplazan la asesoría de un ingeniero agrónomo ni garantizan un rendimiento.' | t }}
+      </p>
+      <p class="derechos">© {{ anio }} AgroCrew. {{ 'Proyecto académico UPC' | t }}.</p>
+    </div>
+  </div>
+</footer>

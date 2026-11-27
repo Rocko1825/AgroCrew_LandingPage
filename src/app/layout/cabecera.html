@@ -1,0 +1,57 @@
+<mat-toolbar class="cabecera" [class.con-borde]="conBorde()" [class.transparente]="transparente()">
+  <div class="contenedor barra">
+    <a class="marca" routerLink="/">
+      <img src="logo.svg?v=2" alt="" width="32" height="32" />
+      <span>AgroCrew</span>
+    </a>
+
+    <nav class="enlaces" [attr.aria-label]="'Secciones' | t">
+      @for (enlace of enlaces; track enlace.ancla) {
+        <a mat-button routerLink="/" [fragment]="enlace.ancla">{{ enlace.texto | t }}</a>
+      }
+    </nav>
+
+    <div class="acciones">
+      <button
+        mat-icon-button
+        type="button"
+        (click)="tema.alternar()"
+        [matTooltip]="(tema.tema() === 'oscuro' ? 'Activar modo claro' : 'Activar modo oscuro') | t"
+        [attr.aria-label]="(tema.tema() === 'oscuro' ? 'Activar modo claro' : 'Activar modo oscuro') | t"
+      >
+        <mat-icon [svgIcon]="tema.tema() === 'oscuro' ? 'sol' : 'luna'" />
+      </button>
+
+      <button
+        mat-button
+        type="button"
+        class="idioma"
+        (click)="alternarIdioma()"
+        [matTooltip]="(idioma === 'es' ? 'Ver en inglés' : 'Ver en español') | t"
+        [attr.aria-label]="(idioma === 'es' ? 'Ver en inglés' : 'Ver en español') | t"
+      >
+        <mat-icon svgIcon="globo" />
+        {{ idioma === 'es' ? 'EN' : 'ES' }}
+      </button>
+
+      <a mat-flat-button class="entrar" [href]="appUrl">{{ 'Entrar a la app' | t }}</a>
+
+      <button
+        mat-icon-button
+        type="button"
+        class="hamburguesa"
+        [matMenuTriggerFor]="menuMovil"
+        [attr.aria-label]="'Abrir menú' | t"
+      >
+        <mat-icon svgIcon="menu" />
+      </button>
+    </div>
+  </div>
+</mat-toolbar>
+
+<mat-menu #menuMovil="matMenu" class="menu-movil" xPosition="before">
+  @for (enlace of enlaces; track enlace.ancla) {
+    <a mat-menu-item routerLink="/" [fragment]="enlace.ancla">{{ enlace.texto | t }}</a>
+  }
+  <a mat-menu-item [href]="appUrl" class="menu-entrar">{{ 'Entrar a la app' | t }}</a>
+</mat-menu>
