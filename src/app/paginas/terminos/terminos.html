@@ -1,0 +1,31 @@
+<div class="contenedor legal">
+  <a mat-button routerLink="/" class="volver">
+    <mat-icon svgIcon="atras" />
+    {{ 'Volver al inicio' | t }}
+  </a>
+
+  <div class="disposicion">
+    <aside class="indice">
+      <mat-nav-list class="indice-terminos" [attr.aria-label]="'Contenido' | t">
+        <h2 class="indice-titulo">{{ 'Contenido' | t }}</h2>
+        @for (c of clausulas; track c.titulo; let i = $index) {
+          <a mat-list-item routerLink="/terminos" [fragment]="'c' + i">{{ c.titulo }}</a>
+        }
+      </mat-nav-list>
+    </aside>
+
+    <article>
+      <h1>{{ 'Términos y condiciones' | t }}</h1>
+      <p class="texto-suave">{{ 'Última actualización: noviembre de 2026' | t }}</p>
+
+      @for (c of clausulas; track c.titulo; let i = $index) {
+        <section [id]="'c' + i">
+          <h2>{{ c.titulo }}</h2>
+          @for (p of c.parrafos; track $index) {
+            <p>{{ p }}</p>
+          }
+        </section>
+      }
+    </article>
+  </div>
+</div>

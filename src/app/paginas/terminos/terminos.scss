@@ -1,0 +1,79 @@
+.legal {
+  padding-top: 32px;
+}
+
+.volver {
+  margin-left: -12px;
+}
+
+.disposicion {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 56px;
+  margin-top: 24px;
+  align-items: start;
+}
+
+.indice {
+  position: sticky;
+  top: 96px;
+
+  mat-nav-list {
+    padding: 0;
+  }
+
+  a {
+    --mat-list-list-item-label-text-color: var(--ac-tinta-suave);
+    height: auto;
+    min-height: 40px;
+    padding-block: 8px;
+    border-radius: 8px;
+  }
+}
+
+.indice-titulo {
+  margin: 0 0 8px 16px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--ac-tinta-suave);
+}
+
+article {
+  max-width: 68ch;
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+section {
+  padding-top: 32px;
+}
+
+h2 {
+  margin-bottom: 10px;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+section p {
+  margin-bottom: 12px;
+  line-height: 1.75;
+  color: var(--ac-tinta-suave);
+}
+
+@media (max-width: 860px) {
+  .disposicion {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .indice {
+    position: static;
+  }
+}
