@@ -1,0 +1,317 @@
+<!-- ========== Portada ==========
+     Una sola imagen de fondo (con capa verde para que el texto se lea)
+     y, al lado, un mapa simulado del predio con la ficha de evaluación. -->
+<section class="hero">
+  <img class="hero-fondo" src="fondos/portada-andes.jpg" alt="" fetchpriority="high" />
+
+  <div class="contenedor hero-grid">
+    <div class="hero-texto">
+      <p class="ceja ceja-clara">{{ 'Proyecto académico UPC' | t }}</p>
+      <h1>
+        <span class="ligero">{{ 'Descubre qué cultivos' | t }}</span>
+        {{ 'son compatibles con tu terreno' | t }}
+      </h1>
+      <p class="pitch">
+        {{ 'AgroCrew cruza datos oficiales de suelo, clima y riesgo hídrico de tu predio y te dice qué sembrar, por qué y qué riesgos vigilar. Gratis y en lenguaje sencillo.' | t }}
+      </p>
+
+      <div class="cta">
+        <a mat-flat-button class="boton-grande boton-claro" [href]="entorno.appUrl">
+          {{ 'Evaluar mi terreno' | t }}
+          <mat-icon iconPositionEnd svgIcon="flecha" />
+        </a>
+        <a mat-stroked-button class="boton-grande boton-contorno-claro" routerLink="/" fragment="como-funciona">
+          {{ 'Ver cómo funciona' | t }}
+        </a>
+      </div>
+
+      <ul class="confianza">
+        <li><mat-icon svgIcon="check" />{{ 'Datos de MIDAGRI, ANA y Open-Meteo' | t }}</li>
+        <li><mat-icon svgIcon="check" />{{ 'Sin instalar nada' | t }}</li>
+        <li><mat-icon svgIcon="check" />{{ 'En español e inglés' | t }}</li>
+      </ul>
+    </div>
+
+    <div class="hero-visual">
+      <!-- Mapa de la app (predios y puntos críticos de la ANA) con controles decorativos de un visor -->
+      <div class="mapa">
+        <img
+          class="mapa-img"
+          src="fondos/mapa-riesgo.png"
+          [alt]="'Mapa con predios registrados y puntos críticos de inundación de la ANA' | t"
+          width="763"
+          height="598"
+        />
+        <div class="mapa-norte" aria-hidden="true"><span>N</span></div>
+        <div class="mapa-zoom" aria-hidden="true"><span>+</span><span>−</span></div>
+        <div class="mapa-escala" aria-hidden="true"><i></i>2 km</div>
+        <span class="mapa-coord" aria-hidden="true">Chosica, Lima · 11°56′ S</span>
+        <ul class="mapa-leyenda" aria-hidden="true">
+          <li><i class="punto-predio"></i>{{ 'Predio' | t }}</li>
+          <li><i class="punto-ana"></i>{{ 'Punto crítico ANA' | t }}</li>
+        </ul>
+      </div>
+
+      <article class="evaluacion" aria-labelledby="evaluacion-titulo">
+        <header class="eval-cabeza">
+          <div>
+            <h2 id="evaluacion-titulo">{{ 'Evaluación de ejemplo' | t }}</h2>
+            <p>{{ 'Puntaje de compatibilidad de 0 a 100' | t }}</p>
+          </div>
+        </header>
+
+        <p class="etiqueta etiqueta-tierra">
+          <mat-icon svgIcon="capas" />
+          {{ 'Grupo A · tierras aptas para cultivo en limpio' | t }}
+        </p>
+
+        <ol class="ranking">
+          @for (fila of ranking; track fila.cultivo; let i = $index) {
+            <li [style.--i]="i">
+              <span class="pos">{{ indice(i) }}</span>
+              <span class="cultivo">{{ fila.cultivo | t }}</span>
+              <mat-progress-bar mode="determinate" [value]="fila.puntaje" [attr.aria-label]="fila.cultivo | t" />
+              <b>{{ fila.puntaje }}</b>
+            </li>
+          }
+        </ol>
+
+        <div class="alerta" role="status">
+          <span class="pulso" aria-hidden="true"></span>
+          <div>
+            <strong>{{ 'Riesgo alto de inundación' | t }}</strong>
+            <small>{{ 'A 2.4 km de tu predio · hace 5 min' | t }}</small>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div class="contenedor">
+    <dl class="cifras" [attr.aria-label]="'AgroCrew en cifras' | t">
+      @for (cifra of cifras; track cifra.texto; let i = $index) {
+        <div class="cifra" [appRevelar]="i">
+          <dt>
+            <span class="sr-only">{{ formatear(cifra.valor, cifra.sufijo) }}</span>
+            <span aria-hidden="true" [appContador]="cifra.valor" [formato]="numero" [sufijo]="cifra.sufijo">{{
+              formatear(cifra.valor, cifra.sufijo)
+            }}</span>
+          </dt>
+          <dd>{{ cifra.texto | t }}</dd>
+        </div>
+      }
+    </dl>
+  </div>
+</section>
+
+<!-- ========== 01 · Funcionalidades ========== -->
+<section id="funcionalidades" class="contenedor seccion funcionalidades">
+  <header class="func-cabeza" appRevelar>
+    <p class="ceja">{{ 'Funcionalidades' | t }}</p>
+    <h2>
+      {{ 'Todo lo que necesitas saber de tu terreno,' | t }}
+      <span class="ligero">{{ 'en un solo lugar' | t }}</span>
+    </h2>
+    <p class="texto-suave">
+      {{ 'Cuatro herramientas que trabajan juntas para que tomes mejores decisiones antes de sembrar.' | t }}
+    </p>
+  </header>
+
+  <div class="func-lista">
+    @for (f of funcionalidades; track f.id; let i = $index) {
+      <article class="func" [attr.data-tipo]="f.id" appRevelar>
+        <span class="func-num" aria-hidden="true">{{ indice(i) }}</span>
+        <div class="func-texto">
+          <h3><mat-icon [svgIcon]="f.icono" />{{ f.titulo | t }}</h3>
+          <p class="texto-suave">{{ f.texto | t }}</p>
+        </div>
+        <div class="func-visual" aria-hidden="true">
+          @switch (f.id) {
+            @case ('ranking') {
+              <div class="mini-ranking">
+                <i style="width: 92%"></i>
+                <i style="width: 86%"></i>
+                <i style="width: 74%"></i>
+                <i style="width: 61%"></i>
+              </div>
+            }
+            @case ('suelo') {
+              <div class="estratos"><i></i><i></i><i></i></div>
+            }
+            @case ('clima') {
+              <svg viewBox="0 0 200 60" class="curva-clima">
+                <path class="area" d="M0 44 C20 34 35 22 55 26 S90 48 110 34 S150 10 170 18 S195 30 200 26 V60 H0Z" />
+                <path d="M0 44 C20 34 35 22 55 26 S90 48 110 34 S150 10 170 18 S195 30 200 26" />
+              </svg>
+            }
+            @case ('riesgo') {
+              <svg viewBox="0 0 120 60" class="radar">
+                <circle cx="44" cy="30" r="26" />
+                <circle cx="44" cy="30" r="15" />
+                <circle cx="44" cy="30" r="4" class="predio" />
+                <circle cx="96" cy="22" r="5" class="punto-ana" />
+                <line x1="44" y1="30" x2="91" y2="23" />
+              </svg>
+            }
+          }
+        </div>
+      </article>
+    }
+  </div>
+</section>
+
+<!-- ========== 02 · Cómo funciona ========== -->
+<section id="como-funciona" class="banda banda-oscura banda-foto">
+  <img class="banda-fondo" src="fondos/terrazas.jpg" alt="" loading="lazy" />
+  <div class="contenedor seccion">
+    <header class="cabeza-seccion" appRevelar>
+      <p class="ceja ceja-clara">{{ 'Cómo funciona' | t }}</p>
+      <h2>
+        {{ 'De tu terreno a una recomendación' | t }}
+        <span class="ligero">{{ 'en tres pasos' | t }}</span>
+      </h2>
+    </header>
+
+    <ol class="pasos">
+      @for (paso of pasos; track paso.titulo; let i = $index) {
+        <li [appRevelar]="i">
+          <div class="paso-marca">
+            <span class="nodo"><mat-icon [svgIcon]="paso.icono" /></span>
+            <span class="num" aria-hidden="true">{{ indice(i) }}</span>
+          </div>
+          <h3>{{ paso.titulo | t }}</h3>
+          <p>{{ paso.texto | t }}</p>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<!-- ========== 03 · Para quién es ========== -->
+<section id="para-quien" class="contenedor seccion">
+  <header class="cabeza-seccion" appRevelar>
+    <p class="ceja">{{ 'Para quién es' | t }}</p>
+    <h2>
+      {{ 'Pensado para quienes trabajan la tierra' | t }}
+      <span class="ligero">{{ 'y quienes los acompañan' | t }}</span>
+    </h2>
+  </header>
+
+  <div class="segmentos" role="list" [attr.aria-label]="'Tipos de usuario' | t">
+    @for (s of segmentos; track s.id; let i = $index) {
+      <article class="segmento" role="listitem" [class.destacado]="i === 0" [appRevelar]="i">
+        <div class="seg-cabeza">
+          <span class="seg-icono"><mat-icon [svgIcon]="s.icono" /></span>
+          <span class="seg-num" aria-hidden="true">{{ indice(i) }}</span>
+        </div>
+        <h3>{{ s.titulo | t }}</h3>
+        <p class="resumen">{{ s.resumen | t }}</p>
+        <ul class="puntos">
+          @for (punto of s.puntos; track punto) {
+            <li><mat-icon svgIcon="check" />{{ punto | t }}</li>
+          }
+        </ul>
+        <a class="enlace-flecha" [href]="entorno.appUrl">
+          {{ 'Crear mi cuenta gratis' | t }}
+          <mat-icon svgIcon="flecha" />
+        </a>
+      </article>
+    }
+  </div>
+</section>
+
+<!-- ========== 04 · Impacto ========== -->
+<section id="impacto" class="banda banda-verde banda-foto banda-foto-verde impacto">
+  <img class="banda-fondo" src="fondos/agricultores.png" alt="" loading="lazy" />
+  <span class="ods-num" aria-hidden="true">2</span>
+  <div class="contenedor seccion impacto-grid">
+    <div appRevelar>
+      <p class="ceja ceja-clara">{{ 'Impacto' | t }}</p>
+      <h2>
+        {{ 'Contribuimos al ODS 2:' | t }}
+        <span class="ligero">{{ 'Hambre cero' | t }}</span>
+      </h2>
+      <blockquote class="meta">
+        <strong>{{ 'Meta 2.4' | t }}</strong>
+        {{ 'Asegurar sistemas sostenibles de producción de alimentos y aplicar prácticas agrícolas resilientes que aumenten la productividad, ayuden a mantener los ecosistemas y fortalezcan la adaptación al cambio climático.' | t }}
+      </blockquote>
+    </div>
+
+    <ul class="beneficios">
+      @for (b of beneficios; track b.titulo; let i = $index) {
+        <li [appRevelar]="i">
+          <mat-icon [svgIcon]="b.icono" />
+          <div>
+            <h3>{{ b.titulo | t }}</h3>
+            <p>{{ b.texto | t }}</p>
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<!-- ========== 05 · Datos oficiales (bitácora) ========== -->
+<section class="contenedor seccion" aria-labelledby="titulo-fuentes">
+  <header class="cabeza-seccion" appRevelar>
+    <p class="ceja">{{ 'Datos oficiales' | t }}</p>
+    <h2 id="titulo-fuentes">{{ 'Información pública y confiable' | t }}</h2>
+  </header>
+
+  <ol class="bitacora">
+    @for (f of fuentes; track f.nombre; let i = $index) {
+      <li [appRevelar]="i">
+        <span class="bit-num" aria-hidden="true">{{ indice(i) }}</span>
+        <span class="etiqueta"><mat-icon [svgIcon]="f.icono" />{{ f.tema | t }}</span>
+        <strong class="bit-nombre">{{ f.nombre }}</strong>
+        <span class="bit-dato">{{ f.dato | t }}</span>
+      </li>
+    }
+  </ol>
+</section>
+
+<!-- ========== 06 · El proyecto ========== -->
+<section id="proyecto" class="contenedor seccion">
+  <div class="caso" appRevelar>
+    <div class="caso-texto">
+      <p class="ceja">{{ 'El proyecto' | t }}</p>
+      <h2>{{ 'Conoce cómo está construido AgroCrew' | t }}</h2>
+      <p class="texto-suave">
+        {{ 'Una API REST en Spring Boot desplegada en AWS y una aplicación web en Angular. El código es abierto: revisa la documentación de la API o los repositorios.' | t }}
+      </p>
+      <ul class="tecnologias" [attr.aria-label]="'Tecnologías' | t">
+        @for (tec of tecnologias; track tec) {
+          <li>{{ tec }}</li>
+        }
+      </ul>
+    </div>
+
+    <ul class="enlaces-proyecto">
+      @for (e of enlacesProyecto; track e.url) {
+        <li>
+          <a [href]="e.url" target="_blank" rel="noopener">
+            <mat-icon class="ep-icono" [svgIcon]="e.icono" />
+            <span class="ep-texto">
+              <strong>{{ e.titulo | t }}</strong>
+              <small>{{ e.detalle | t }}</small>
+            </span>
+            <mat-icon class="ep-externo" svgIcon="externo" />
+            <span class="sr-only">({{ 'Se abre en una pestaña nueva' | t }})</span>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<!-- ========== Llamada final ========== -->
+<section class="contenedor cta-final">
+  <h2 appRevelar>{{ '¿Listo para conocer tu terreno?' | t }}</h2>
+  <div class="cta-fila" appRevelar="1">
+    <p class="texto-suave">{{ 'Crea tu cuenta, registra tu predio y recibe tu primera recomendación en minutos.' | t }}</p>
+    <a mat-flat-button class="boton-grande" [href]="entorno.appUrl">
+      {{ 'Empezar ahora' | t }}
+      <mat-icon iconPositionEnd svgIcon="flecha" />
+    </a>
+  </div>
+</section>
